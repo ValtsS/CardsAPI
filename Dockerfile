@@ -1,8 +1,6 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8000
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -18,4 +16,13 @@ RUN dotnet publish "CardsAPI.csproj" -c Release -o /app/publish /p:UseAppHost=fa
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CardsAPI.dll"]
+
+
+
+# create a non-privileged user
+RUN adduser --disabled-password --gecos "" appuser
+
+# switch to the non-privileged user
+USER appuser
+
+ENTRYPOINT ["dotnet", "CardsAPI.dll", "--urls", "http://0.0.0.0:8000"]
