@@ -10,4 +10,4 @@ fi
 docker build -t cardsapi .
 
 # Run the Docker container
-docker run --name cardsapi -p 8000:8000 --user appuser -d cardsapi
+docker run --name cardsapi -p 8000:8000 --user appuser -d --restart always cardsapi
