@@ -19,9 +19,9 @@ namespace CardsAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<Card[]> Get(string? query)
+        public async Task<Card[]> Get(string? query, string? uuid)
         {
-            return await service.GetCardsAsync(new CardFilter() { searchQuery = query ?? "" });
+            return await service.GetCardsAsync(new CardFilter() { searchQuery = query ?? "", uuid = uuid ?? "" });
         }
     }
 }

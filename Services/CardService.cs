@@ -22,9 +22,13 @@ namespace CardsAPI.Services
             if (filter == null)
                 throw new ArgumentNullException(nameof(filter));
 
-            return this.cards.Where(a =>
-                a.Matches(filter.searchQuery)
-            ).ToArray();
+            var sq = this.cards.Where(a =>
+                a.Matches(filter.searchQuery));
+
+            if (!string.IsNullOrEmpty(filter.uuid))
+                sq = sq.Where(a => a.uuid == filter.uuid);
+
+            return sq.ToArray();
         }
     }
 }
