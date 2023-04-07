@@ -44,7 +44,7 @@ namespace CardsAPI.Services
                 title = gen.GenerateTitle(),
                 imageUrl = dummypics[id % dummypics.Length],
                 text = gen.GenerateText(),
-                price = $"${Math.Abs(id % 3000)}",
+                price = Math.Abs(id % 3000),
                 addedat = rndDate(id),
                 minipic = minipic[id % minipic.Length],
                 rating = 1 + Math.Abs(id) % 4,
