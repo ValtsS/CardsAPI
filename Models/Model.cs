@@ -7,7 +7,7 @@
         public string title { get; set; }
         public string imageUrl { get; set; }
         public string text { get; set; }
-        public string price { get; set; }
+        public int? price { get; set; }
         public DateTime? addedat { get; set; }
         public string minipic { get; set; }
         public int? rating { get; set; }
@@ -18,7 +18,9 @@
         {
             if (string.IsNullOrEmpty(query)) return true;
 
-            return (price.Contains(query) ||
+            string pricestr = this.price.ToString() ?? "";
+
+            return (pricestr.Contains(query) ||
                 text.Contains(query) ||
                 title.Contains(query) ||
                 ((addedat.HasValue) && addedat.Value.ToString().Contains(query))
@@ -27,4 +29,7 @@
         }
 
     }
+
+
+
 }
